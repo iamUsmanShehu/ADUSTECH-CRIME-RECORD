@@ -10,7 +10,7 @@ echo "<pre>$output</pre>";
     <title>Verify Thumbprint</title>
 </head>
 <body>
-    <h1>Verify Student</h1>
+    <h1>Verify Suspect</h1>
     <form method="post" action="verify.php">
         <input type="submit" value="Verify">
     </form>

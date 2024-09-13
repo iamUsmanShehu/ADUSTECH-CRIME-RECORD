@@ -28,22 +28,22 @@ def capture_fingerprint():
     characteristics = f.downloadCharacteristics(0x01)
     return characteristics
 
-def store_fingerprint(student_id, name, characteristics):
-    conn = mysql.connector.connect(user='root', password='', host='localhost', database='student_attendance_system')
+def store_fingerprint(suspect_id, name, characteristics):
+    conn = mysql.connector.connect(user='root', password='', host='localhost', database='murja_fingerprint_test')
     cursor = conn.cursor()
 
-    sql = "INSERT INTO students (student_id, name, fingerprint_template) VALUES (%s, %s, %s)"
-    cursor.execute(sql, (student_id, name, characteristics))
+    sql = "INSERT INTO suspects (suspect_id, name, fingerprint_template) VALUES (%s, %s, %s)"
+    cursor.execute(sql, (suspect_id, name, characteristics))
     conn.commit()
     conn.close()
 
 if __name__ == '__main__':
     if len(sys.argv) != 3:
-        print("Usage: capture_fingerprint.py <student_id> <name>")
+        print("Usage: capture_fingerprint.py <suspect_id> <name>")
         sys.exit(1)
 
-    student_id = sys.argv[1]
+    suspect_id = sys.argv[1]
     name = sys.argv[2]
     characteristics = capture_fingerprint()
-    store_fingerprint(student_id, name, characteristics)
+    store_fingerprint(suspect_id, name, characteristics)
     print('Fingerprint captured and stored successfully!')

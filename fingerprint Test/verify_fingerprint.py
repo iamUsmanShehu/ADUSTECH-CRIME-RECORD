@@ -20,25 +20,25 @@ def verify_fingerprint():
     return characteristics
 
 def match_fingerprint(characteristics):
-    conn = mysql.connector.connect(user='root', password='', host='localhost', database='student_attendance_system')
+    conn = mysql.connector.connect(user='root', password='', host='localhost', database='murja_fingerprint_test')
     cursor = conn.cursor()
 
-    sql = "SELECT student_id, fingerprint_template FROM students"
+    sql = "SELECT suspect_id, fingerprint_template FROM suspects"
     cursor.execute(sql)
-    students = cursor.fetchall()
+    suspect = cursor.fetchall()
     
-    for student in students:
-        stored_characteristics = student[1]
+    for suspect in suspect:
+        stored_characteristics = suspect[1]
         if stored_characteristics == characteristics:
-            return student[0]
+            return suspect[0]
 
     conn.close()
     return None
 
 if __name__ == '__main__':
     characteristics = verify_fingerprint()
-    student_id = match_fingerprint(characteristics)
-    if student_id:
-        print(f'Student ID {student_id} verified successfully!')
+    suspect_id = match_fingerprint(characteristics)
+    if suspect_id:
+        print(f'suspect ID {suspect_id} verified successfully!')
     else:
         print('Fingerprint not recognized.')
